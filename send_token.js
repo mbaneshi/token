@@ -6,33 +6,25 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
   
 
 //all codes goes here 
- $(document).ready(function() {
     
-   function isValidate_address(address) {
-     return true; 
-  
-   }
+  $(document).ready(function(){
 
    //document get ready , so it is ready to run code 
    console.log('I am Document , I am ready');
+   $('#form').css('visibility','visible');
    
    //focus first elemet to start
    $("issuer_address").focus();
 
-   //TODO:comment out  for production 
 
 
-  // commented for test , u
   $("#issuer_address").on('blur',function () { 
   
     $('#isuuer_address_error').text(''); 
     $('#isuuer_address_info').text(''); 
     
     var issuer_address = $(this).val();
-    if (isValidate_address(issuer_address)) {
-      //console.log(`${issuer_address} is valid `)
-      
-    }
+    
     var account_info = get_account_info_fn(issuer_address);
     console.log('acount_info',account_info)
     var  account_line_info= get_acount_line_info(issuer_address)
@@ -43,7 +35,7 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
     account_info.then(
       (e) => {
         
-        console.log(e.result);
+        console.log('this is acount info in resolved promise',e);
         $('#isuuer_address_error').text('') 
         $('#isuuer_address_info').text('Account Balance '+e.result.account_data.Balance / 1000000);
       }
@@ -53,38 +45,51 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
         $('#isuuer_address_error').text(e.data.error_message) 
       }
       );
+
+      //handle return promise for line 
+      account_line_info.then(e=>console.log('this is acount line info in resolved promise ', e.result.lines))
       
       
       
       
     });
-    
   
-  
-
-  $('#reciever_address').on('blur', function () {
+    //reciever adress code flow 
+ $('#reciever_address').on('blur', function () {
     var reciever_address = $(this).val();
     currency_can_recieve = currency_can_recieve_fn(reciever_address);
     currency_can_recieve.then(data => {
-      var currency_arr = data.result.receive_currencies;
+      var currency_can_recieve_arr = data.result.receive_currencies;
+      var currencies_can_send_arr = data.result.send_currencies;
+               console.log('currencies this acount can recieve ',currency_can_recieve_arr);
+               console.log('currencies this acount can recieve ',currencies_can_send_arr);
       var curreny_name = $('#currency_name').val();
+
 //check for existance 
-  check_for_existance = $.inArray(curreny_name, currency_arr)
 
-console.log('check_for_existance',check_for_existance)
 
-      
+
+if(currency_can_recieve_arr.includes(curreny_name))
+{
+ 	// Do something
+   $('#currencies_can_recieve').html('this acount can recieve '+curreny_name)
+   
+   
+  }
+  else{
+    
+    $('#currencies_can_recieve').html('this acount can NOT recieve '+curreny_name)
+}
+
+
+
 
     }
     )
       .catch(e => console.log(e));
   });
 
-
-
-
-
-
+  //handle form submission
 $('#form').on('submit', function (e) {
 
   e.preventDefault();
@@ -105,7 +110,7 @@ $('#form').on('submit', function (e) {
          
 })
 
-
+});//End Of document ready
 
 //Async function Definition 
 //--------------------------------------------------------

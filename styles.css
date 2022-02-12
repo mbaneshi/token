@@ -14,3 +14,8 @@
 #trustline_error{
     color: rgba(233, 30, 70, 0.865);
 }
+
+#form{
+    visibility:hidden;
+    
+}

@@ -1,0 +1,32 @@
+isuuer_address =
+
+rw5nJ4E54qtJYdX8WW6KeSaZjg67rGCR4K
+
+
+
+currency_name = 
+MLN
+
+
+
+sender_address = 
+
+rnpxJWV78F7jhyPixpogUFkH7XnYSATK1V
+
+
+
+
+sender_seed =
+
+sht57h6excP63eu92EbhNbt4UmbuW
+
+
+
+reciever_address = 
+rffzTo2NMLywhVVhbN9ETT8XJuQ8oqSXxm
+
+
+
+token_quantity = 
+1
+
