@@ -1,0 +1,16 @@
+#isuuer_address_info{
+    color : rgb(23, 163, 223);
+}
+
+#isuuer_address_error { 
+    color: rgba(233, 30, 70, 0.865);
+}
+
+#trustline_info{
+    color : rgb(23, 163, 223);
+
+}
+
+#trustline_error{
+    color: rgba(233, 30, 70, 0.865);
+}
