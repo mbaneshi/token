@@ -10,71 +10,76 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
     
    function isValidate_address(address) {
      return true; 
-     
+  
    }
+
    //document get ready , so it is ready to run code 
    console.log('I am Document , I am ready');
    
    //focus first elemet to start
    $("issuer_address").focus();
-   
 
-   $("#issuer_address")
-     .blur(function () {
-       $('#isuuer_address_error').text(''); 
-       $('#isuuer_address_info').text(''); 
-       
-       var issuer_address = $(this).val();
-       if (isValidate_address(issuer_address)) {
-         //console.log(`${issuer_address} is valid `)
-
-       }
-       var account_info = get_account_info_fn(issuer_address);
-       console.log('acount_info',account_info)
-       var  account_line_info= get_acount_line_info(issuer_address)
-       console.log('acount_line_info', account_line_info);
-
-       
-       
-       account_info.then(
-         (e) => {
-
-           console.log(e.result);
-         $('#isuuer_address_error').text('') 
-           $('#isuuer_address_info').text('Account Balance '+e.result.account_data.Balance / 1000000);
-         }
-       ).catch(e => {
-         console.log(e)
-        $('#isuuer_address_info').text(''); 
-         $('#isuuer_address_error').text(e.data.error_message) 
-       }
-       );
+   //TODO:comment out  for production 
 
 
+  // commented for test , u
+  $("#issuer_address").on('blur',function () { 
+  
+    $('#isuuer_address_error').text(''); 
+    $('#isuuer_address_info').text(''); 
+    
+    var issuer_address = $(this).val();
+    if (isValidate_address(issuer_address)) {
+      //console.log(`${issuer_address} is valid `)
       
+    }
+    var account_info = get_account_info_fn(issuer_address);
+    console.log('acount_info',account_info)
+    var  account_line_info= get_acount_line_info(issuer_address)
+    console.log('acount_line_info', account_line_info);
+    
+    
+    
+    account_info.then(
+      (e) => {
+        
+        console.log(e.result);
+        $('#isuuer_address_error').text('') 
+        $('#isuuer_address_info').text('Account Balance '+e.result.account_data.Balance / 1000000);
+      }
+      ).catch(e => {
+        console.log(e)
+        $('#isuuer_address_info').text(''); 
+        $('#isuuer_address_error').text(e.data.error_message) 
+      }
+      );
+      
+      
+      
+      
+    });
+    
+  
+  
 
-     });
-   
-   
-   
- });
-$(document).ready(function () {
   $('#reciever_address').on('blur', function () {
     var reciever_address = $(this).val();
     currency_can_recieve = currency_can_recieve_fn(reciever_address);
     currency_can_recieve.then(data => {
       var currency_arr = data.result.receive_currencies;
       var curreny_name = $('#currency_name').val();
-console.log(curreny_name)
-      if (curreny_name in currency_arr) {
-        console.log('mamele mishe ');
-    }
-    
+//check for existance 
+  check_for_existance = $.inArray(curreny_name, currency_arr)
+
+console.log('check_for_existance',check_for_existance)
+
+      
+
     }
     )
       .catch(e => console.log(e));
   });
-});
+
 
 
 
@@ -101,6 +106,11 @@ $('#form').on('submit', function (e) {
 })
 
 
+
+//Async function Definition 
+//--------------------------------------------------------
+
+//function to get currency that adress can recieved 
 async function currency_can_recieve_fn(address) {
   var client = new xrpl.Client(PUBLIC_SERVER)
   await client.connect()
@@ -117,11 +127,7 @@ async function currency_can_recieve_fn(address) {
 
 }
 
-
-//Async function Definition 
-
-// Send token  function
-
+// function to Send token  
 async function send_token_fn(
   sender_address,
   reciever_address,
@@ -164,6 +170,7 @@ async function send_token_fn(
   
   console.log('pay result is as follows ', pay_result);
   
+     
   client.disconnect()
 } 
 
@@ -242,6 +249,8 @@ async function get_account_balabce_info_fn(address) {
  client.disconnect() 
 
 }
+
+//function to get account line information
 async function get_acount_line_info(address) {
 var client = new xrpl.Client(PUBLIC_SERVER)
     await client.connect() 
@@ -257,7 +266,7 @@ var client = new xrpl.Client(PUBLIC_SERVER)
   return account_line_info
 }
 
-//gateway balance 
+//function to get gateway balance 
 async function get_gateway_balance_fn(address) {
  var client = new xrpl.Client(PUBLIC_SERVER)
     await client.connect()  
@@ -275,10 +284,3 @@ async function get_gateway_balance_fn(address) {
 
 }
 
-
-
-
-document.addEventListener('close',()=>{
-  
-  client.disconnect()
-})
