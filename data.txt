@@ -29,4 +29,3 @@ rffzTo2NMLywhVVhbN9ETT8XJuQ8oqSXxm
 
 token_quantity = 
 1
-

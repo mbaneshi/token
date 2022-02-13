@@ -27,10 +27,8 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
     
     var account_info = get_account_info_fn(issuer_address);
     console.log('acount_info',account_info)
-    var  account_line_info= get_acount_line_info(issuer_address)
-    console.log('acount_line_info', account_line_info);
     
-    
+    acount_line_info = get_acount_line_info_fn(issuer_address)
     
     account_info.then(
       (e) => {
@@ -47,9 +45,10 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
       );
 
       //handle return promise for line 
+      //account_line_info = await get_acount_line_info_fn(issuer_address)
       account_line_info.then(e=>console.log('this is acount line info in resolved promise ', e.result.lines))
       
-      
+      .catch(err =>console.log(err))
       
       
     });
@@ -57,6 +56,7 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
     //reciever adress code flow 
  $('#reciever_address').on('blur', function () {
     var reciever_address = $(this).val();
+
     currency_can_recieve = currency_can_recieve_fn(reciever_address);
     currency_can_recieve.then(data => {
       var currency_can_recieve_arr = data.result.receive_currencies;
@@ -87,6 +87,8 @@ if(currency_can_recieve_arr.includes(curreny_name))
     }
     )
       .catch(e => console.log(e));
+
+
   });
 
   //handle form submission
@@ -206,35 +208,47 @@ async function get_acount_line_info_fn(address){
     var client = new xrpl.Client(PUBLIC_SERVER)
     await client.connect()
 
-
+  
     const account_line_info = await client.request({
       "id": 1,
       "command": "account_lines",
       "account": address
     })
-     console.log(`account Line Information for ${address} is `, account_line_info)
+     //console.log(`account Line Information for ${address} is `, account_line_info)
      
      var line_data = account_line_info.result.lines;
      console.log('line data length is ', line_data.length)
+
      for (let i = 0; i < line_data.length; i++){
-       var currency_name = $('#currency_name').val();
-       if(currency_name ==line_data[i].currency){
-var trusline_status= true
-      }
+    console.log(`line#$#${i}`,line_data[i]) ;
+    if(line_data[i].currency ==$('#currency_name').val()&& -line_data.balance>=100){
+                console.log('',line_data[i].acount);
+                console.log('',line_data[i].acount);
+    }
+
+    }
+    return account_line_info;
+
+    //    var currency_name = $('#currency_name').val();
        
-      //  if(trusline_status){
-        //    $(#trustline_info).text('Reciever has trusline set , it is ready to go')
-        //  }else {
-          //   $(#trustline_error).text('Reciever has not trusline set , please make it set ')
+    //    if(currency_name ==line_data[i].currency){
+
+    //     var trusline_status= true
+    //   }
+       
+    //   //  if(trusline_status){
+    //     //    $(#trustline_info).text('Reciever has trusline set , it is ready to go')
+    //     //  }else {
+    //       //   $(#trustline_error).text('Reciever has not trusline set , please make it set ')
           
+    client.disconnect()
           
         }
         
         //console.log('line data ',line_data)
         
-        client.disconnect()
         
-      }
+      
   
 //function to get account balance 
 async function get_account_balabce_info_fn(address) {
