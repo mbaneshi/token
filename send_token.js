@@ -55,8 +55,9 @@ const PUBLIC_SERVER = "wss://xrplcluster.com/"
   
     //reciever adress code flow 
  $('#reciever_address').on('blur', function () {
-    var reciever_address = $(this).val();
+    
 
+    /*
     currency_can_recieve = currency_can_recieve_fn(reciever_address);
     currency_can_recieve.then(data => {
       var currency_can_recieve_arr = data.result.receive_currencies;
@@ -87,6 +88,12 @@ if(currency_can_recieve_arr.includes(curreny_name))
     }
     )
       .catch(e => console.log(e));
+      
+
+*///end of currency_can_recieve_fn
+
+
+
 
 
   });
@@ -100,16 +107,33 @@ $('#form').on('submit', function (e) {
    var currency_name =  e.target.currency_name.value
    var sender_address =  e.target.sender_address.value
    var sender_seed =  e.target.sender_seed.value
-   var reciever_address =  e.target.reciever_address.value
+   var reciever_address_comma_seprated =  e.target.reciever_address.value
    var token_quantity =  e.target.token_quantity.value
-    
-   send_token_fn(sender_address = sender_address,
-    reciever_address = reciever_address,
+   reciever_address_array = reciever_address_comma_seprated.split(',');
+
+   var length =  reciever_address_array.length
+for (i=0; i<length;i++){
+
+  console.log(`transaction prepare for address ${reciever_address_array[i]}`);
+
+
+   response_from_transaction  = send_token_fn(sender_address = sender_address,
+    reciever_address = reciever_address_array[i],
     issuer_address = issuer_address,
     token_quantity = token_quantity,
     sender_seed = sender_seed,
     currency_name = currency_name);
-         
+
+
+    response_from_transaction.then(e=>{console.log(e)})
+
+    .catch(e =>{console.log(e)});
+
+
+}
+
+
+ 
 })
 
 });//End Of document ready
@@ -175,7 +199,14 @@ async function send_token_fn(
   console.log(`Sending ${token_quantity} ${currency_name} to ${reciever_address}...`)
   const pay_result = await client.submitAndWait(pay_signed.tx_blob)
   
-  console.log('pay result is as follows ', pay_result);
+  console.log('pay result of transaction is as follows ', pay_result);
+  console.log('pay result type  ', pay_result.type);
+  console.log('pay result Account is as follows ', pay_result.Account);
+  console.log('pay result Amount is as follows ', pay_result.Amount);
+  console.log('pay result  currency is as follows ', pay_result.Amount.currency);
+  console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
+  console.log('pay result  value is as follows ', pay_result.Amount.value);
+
   
      
   client.disconnect()
