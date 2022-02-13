@@ -200,13 +200,14 @@ async function send_token_fn(
   const pay_result = await client.submitAndWait(pay_signed.tx_blob)
   
   console.log('pay result of transaction is as follows ', pay_result);
+ /*
   console.log('pay result type  ', pay_result.type);
   console.log('pay result Account is as follows ', pay_result.Account);
   console.log('pay result Amount is as follows ', pay_result.Amount);
   console.log('pay result  currency is as follows ', pay_result.Amount.currency);
   console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
   console.log('pay result  value is as follows ', pay_result.Amount.value);
-
+*/
   
      
   client.disconnect()
