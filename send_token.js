@@ -11,12 +11,7 @@ function sleep(milliseconds) {
   } while (currentDate - date < milliseconds);
 }
 
-console.log("Hello");
-sleep(2000);
-console.log("World!");
 
-
-  
 
 //all codes goes here 
     
@@ -30,87 +25,96 @@ console.log("World!");
    $("issuer_address").focus();
 
 
-
-  $("#issuer_address").on('blur',function () { 
+///////////////////////////////
+  // $("#issuer_address").on('blur',function () { 
   
-    $('#isuuer_address_error').text(''); 
-    $('#isuuer_address_info').text(''); 
+  //   $('#isuuer_address_error').text(''); 
+  //   $('#isuuer_address_info').text(''); 
     
-    var issuer_address = $(this).val();
+  //   var issuer_address = $(this).val();
+  //   ////////////////////////////
+  //   var account_info = get_account_info_fn(issuer_address);
+  //   console.log('acount_info',account_info)
     
-    var account_info = get_account_info_fn(issuer_address);
-    console.log('acount_info',account_info)
+  //   acount_line_info = get_acount_line_info_fn(issuer_address)
     
-    acount_line_info = get_acount_line_info_fn(issuer_address)
-    
-    account_info.then(
-      (e) => {
+  //   account_info.then(
+  //     (e) => {
         
-        console.log('this is acount info in resolved promise',e);
-        $('#isuuer_address_error').text('') 
-        $('#isuuer_address_info').text('Account Balance '+e.result.account_data.Balance / 1000000);
-      }
-      ).catch(e => {
-        console.log(e)
-        $('#isuuer_address_info').text(''); 
-        $('#isuuer_address_error').text(e.data.error_message) 
-      }
-      );
+  //       console.log('this is acount info in resolved promise',e);
+  //       $('#isuuer_address_error').text('') 
+  //       $('#isuuer_address_info').text('Account Balance '+e.result.account_data.Balance / 1000000);
+  //     }
+  //     ).catch(e => {
+  //       console.log(e)
+  //       $('#isuuer_address_info').text(''); 
+  //       $('#isuuer_address_error').text(e.data.error_message) 
+  //     }
+  //     );
 
-      //handle return promise for line 
-      //account_line_info = await get_acount_line_info_fn(issuer_address)
-      account_line_info.then(e=>console.log('this is acount line info in resolved promise ', e.result.lines))
+  //     //handle return promise for line 
+  //     //account_line_info = await get_acount_line_info_fn(issuer_address)
+  //     // account_line_info.then(e=>console.log('this is acount line info in resolved promise ', e.result.lines))
       
-      .catch(err =>console.log(err))
+  //     // .catch(err =>console.log(err))
       
       
-    });
-  
+  //   });
+    
+  //////////////////////////////////////////////////////////////////
     //reciever adress code flow 
- $('#reciever_address').on('blur', function () {
+    ////////////////////////////////===========================
     
+                  // $('#reciever_address').on('blur', function () {
+                      
 
-    /*
-    currency_can_recieve = currency_can_recieve_fn(reciever_address);
-    currency_can_recieve.then(data => {
-      var currency_can_recieve_arr = data.result.receive_currencies;
-      var currencies_can_send_arr = data.result.send_currencies;
-               console.log('currencies this acount can recieve ',currency_can_recieve_arr);
-               console.log('currencies this acount can recieve ',currencies_can_send_arr);
-      var curreny_name = $('#currency_name').val();
+                      
+                  //     currency_can_recieve = currency_can_recieve_fn(reciever_address);
+                  //     currency_can_recieve.then(data => {
+                  //       var currency_can_recieve_arr = data.result.receive_currencies;
+                  //       var currencies_can_send_arr = data.result.send_currencies;
+                  //               console.log('currencies this acount can recieve ',currency_can_recieve_arr);
+                  //               console.log('currencies this acount can recieve ',currencies_can_send_arr);
+                  //       var curreny_name = $('#currency_name').val();
 
-//check for existance 
-
-
-
-if(currency_can_recieve_arr.includes(curreny_name))
-{
- 	// Do something
-   $('#currencies_can_recieve').html('this acount can recieve '+curreny_name)
-   
-   
-  }
-  else{
-    
-    $('#currencies_can_recieve').html('this acount can NOT recieve '+curreny_name)
-}
+                  // //check for existance 
 
 
 
-
-    }
-    )
-      .catch(e => console.log(e));
-      
-
-*///end of currency_can_recieve_fn
+                  // if(currency_can_recieve_arr.includes(curreny_name))
+                  // {
+                  //   // Do something
+                  //   $('#currencies_can_recieve').html('this acount can recieve '+curreny_name)
+                    
+                    
+                  //   }
+                  //   else{
+                      
+                  //     $('#currencies_can_recieve').html('this acount can NOT recieve '+curreny_name)
+                  // }
 
 
 
 
+                  //     }
+                  //     )
+                  //       .catch(e => console.log(e));
+                        
 
-  });
+                  // //end of currency_can_recieve_fn
 
+
+
+
+
+                  //   });
+  
+
+
+
+
+
+////////////////////////============================
   //handle form submission
 $('#form').on('submit', function (e) {
 
@@ -130,18 +134,18 @@ for (i=0; i<length;i++){
   console.log(`transaction prepare for address ${reciever_address_array[i]}`);
 
 
-   response_from_transaction  = send_token_fn(sender_address = sender_address,
+   response_from_send_token_fn  = send_token_fn(sender_address = sender_address,
     reciever_address = reciever_address_array[i],
     issuer_address = issuer_address,
     token_quantity = token_quantity,
     sender_seed = sender_seed,
     currency_name = currency_name);
 
-    response_from_transaction.then(e=>{console.log(e)})
+    response_from_send_token_fn.then(e=>{console.log(e)})
 
     .catch(e =>{console.log(e)});
 
-    sleep(7000);
+    sleep(10000);
 
 }
 
@@ -210,19 +214,66 @@ async function send_token_fn(
   const pay_signed = sender_wallet.sign(pay_prepared)
 
   console.log(`Sending ${token_quantity} ${currency_name} to ${reciever_address}...`)
-  const pay_result = await client.submitAndWait(pay_signed.tx_blob)
-  
-  console.log('pay result of transaction is as follows ', pay_result);
- /*
+  const response = await client.submitAndWait(pay_signed.tx_blob)
+sleep(500);
+  $('#response_result_Account').html('acount =',response.result.Account)
+  $('#response_result_Amount_currency').html('currency',response.result.Amount.currency);
+  $('#response_result_Amount_value').html('value=',response.result.Account.value)
+  $('#response_result_Destination').html('destination =',response.result.Account)
+  $('#response_result_Fee').html('fee =',response.result.Account)
+  $('#response_result_Flags').html('flag =',response.result.Account)
+  $('#response_result_LastLedgerSequence').html('LastLedgerSequence =',response.result.Account)
+  $('#response_result_Sequence').html('Sequence =',response.result.Account)
+  $('#response_result_SigningPubKey').html('SigningPubKey =',response.result.Account)
+  $('#"response_result_TransactionType').html('TransactionType =',response.result.Account)
+  $('#"response_result_date').html('date' ,response.result.Account)
+  $('#esponse_result_hash').html('hash =',response.result.Account)
+  $('#response_result_ledger_index').html('ledger_index =',response.result.Account)
+  $('#response_result_meta_TransactionIndex').html('TransactionIndex =',response.result.Account)
+  $('#response_result_meta_TransactionResult').html('TransactionResult =',response.result.Account)
+  $('#"response_result_meta_delivered_amount_currency').html('delivered_amount_currency =',response.result.Account)
+  $('#response_result_meta_delivered_amount_issuer').html('delivered_amount_issuer =',response.result.Account)
+  $('#response_result_meta_delivered_amount_value').html('amount_value =',response.result.Account)
+  $('#response_result_Amount_currency').html('Amount_currency =',response.result.Account)
+
+  //
+ 
+      console.log('Account',response.result.Account);
+      console.log('currency',response.result.Amount.currency);
+      console.log('issuer',response.result.Amount.issuer);
+      console.log('value',response.result.Amount.value);
+      console.log('Destination',response.result.Destination);
+      console.log('Fee',response.result.Fee);
+      console.log('Flags',response.result.Flags);
+      console.log('LastLedgerSequence',response.result.LastLedgerSequence);
+      console.log('Sequence',response.result.Sequence);
+      console.log('SigningPubKey',response.result.SigningPubKey);
+      console.log('TransactionType',response.result.TransactionType);
+      console.log('date',response.result.date);
+      console.log('hash',response.result.hash);
+      console.log('ledger_index',response.result.ledger_index);
+      console.log('TransactionIndex',response.result.meta.TransactionIndex);
+      console.log('TransactionResult',response.result.meta.TransactionResult);
+      console.log('currency',response.result.meta.delivered_amount.currency);
+      console.log('issuer',response.result.meta.delivered_amount.issuer);
+      console.log('value',response.result.meta.delivered_amount.value);
+
+
+
+
+
+
+
+ 
   console.log('pay result type  ', pay_result.type);
   console.log('pay result Account is as follows ', pay_result.Account);
   console.log('pay result Amount is as follows ', pay_result.Amount);
   console.log('pay result  currency is as follows ', pay_result.Amount.currency);
   console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
   console.log('pay result  value is as follows ', pay_result.Amount.value);
-*/
-  
 
+  
+return response
   client.disconnect()
 } 
 
@@ -290,11 +341,7 @@ async function get_acount_line_info_fn(address){
           
         }
         
-        //console.log('line data ',line_data)
         
-        
-      
-  
 //function to get account balance 
 async function get_account_balabce_info_fn(address) {
     
