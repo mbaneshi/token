@@ -25,6 +25,10 @@ sht57h6excP63eu92EbhNbt4UmbuW
 reciever_address = 
 rffzTo2NMLywhVVhbN9ETT8XJuQ8oqSXxm
 
+reciever address coma seprated:
+
+rpqQcGCFs3jgyEQZUT6a8ngNFJK7fDTc2P, rah2ZZwQ2bbTPcTZPASJFKeWSJmp1PkHUw,rKrUJwR7BJxFTQRobfeJD2FkmeKVh46eYL
+
 
 
 token_quantity = 

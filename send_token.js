@@ -3,6 +3,19 @@
 //public xrpl websocket url
 const PUBLIC_SERVER = "wss://xrplcluster.com/"
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
+console.log("Hello");
+sleep(2000);
+console.log("World!");
+
+
   
 
 //all codes goes here 
@@ -124,11 +137,11 @@ for (i=0; i<length;i++){
     sender_seed = sender_seed,
     currency_name = currency_name);
 
-
     response_from_transaction.then(e=>{console.log(e)})
 
     .catch(e =>{console.log(e)});
 
+    sleep(7000);
 
 }
 
@@ -209,7 +222,7 @@ async function send_token_fn(
   console.log('pay result  value is as follows ', pay_result.Amount.value);
 */
   
-     
+
   client.disconnect()
 } 
 
