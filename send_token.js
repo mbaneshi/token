@@ -130,12 +130,23 @@ $('#form').on('submit', function (e) {
 
    var reciever_address_array = reciever_address_comma_seprated.split(",").map(item => item.trim());
 
+
+   reciever_address_array.forEach((element,index) => {
+     console.log('this is index ',index);
+     console.log('address is ',element);
+   });
+
    var length =  reciever_address_array.length
+   console.log('len of reciever adress is ',length)
 
    for (i=0; i<length;i++){
 
+
   console.log(`transaction prepare for address ${reciever_address_array[i]}`);
-sleep(2000)
+  console.log('this is in for loop and itertion index is = ', i)
+// sleep(2000)
+date = new Date()
+console.log(date)
 
    response_from_send_token_fn  = send_token_fn(
      sender_address = sender_address,
@@ -145,7 +156,8 @@ sleep(2000)
     sender_seed = sender_seed,
     currency_name = currency_name);
 
-sleep(5000)
+ date2 = new Date()
+console.log(date2)
 
     response_from_send_token_fn.then(e=>{console.log(e)})
 
@@ -220,8 +232,10 @@ async function send_token_fn(
 
   console.log(`Sending ${token_quantity} ${currency_name} to ${reciever_address}...`)
   const response = await client.submitAndWait(pay_signed.tx_blob)
-sleep(500);
 if(response.result.meta.TransactionResult =='tesSUCCESS'){
+
+  $('#table_div').css("visibility","visible");
+
 
  log_to_dom(response);
 
@@ -382,7 +396,7 @@ function log_to_dom(response){
 }
 function log_toconsole(response){
 
-  onsole.log('Account',response.result.Account);
+  console.log('Account',response.result.Account);
   console.log('currency',response.result.Amount.currency);
   console.log('issuer',response.result.Amount.issuer);
   console.log('value',response.result.Amount.value);

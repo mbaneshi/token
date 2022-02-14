@@ -129,32 +129,149 @@
             
         </form>
 
-    </div>
+        <div id='transaction_result'></div>   
+              <h6 id='response_result_Account'> </h6>
+              <h6 id="response_result_Amount_currency"></h6>
+              <h6 id="response_result_Amount.value"></h6>
+              <h6 id="response.result_Destination"></h6>
+              <h6 id="response_result_Fee"></h6>
+              <h6 id="response_result_Flags"></h6>
+              <h6 id="response_result_LastLedgerSequence"></h6>
+              <h6 id="response_result_Sequence"></h6>
+              <h6 id="response_result_SigningPubKey"></h6>
+              <h6 id="response_result_Amount_currency"></h6>
+              <h6 id="response_result_TransactionType"></h6>
+              <h6 id="response_result_date"></h6>
+              <h6 id="response_result_hash"></h6>
+              <h6 id="response_result_ledger_index"></h6>
+              <h6 id="response_result_meta_TransactionIndex"></h6>
+              <h6 id="response_result_meta_TransactionResult"></h6>
+              <h6 id="response_result_meta_delivered_amount_currency"></h6>
+              <h6 id="response_result_meta_delivered_amount_issuer"></h6>
+              <h6 id="response_result_meta_delivered_amount_value"></h6>
     
-              <div id='transaction_result'></div>   
-                    <h6 id='#response_result_Account'> </h6>
-                    <h6 id="response_result_Amount_currency"></h6>
-                    <h6 id="response_result_Amount.value"></h6>
-                    <h6 id="response.result_Destination"></h6>
-                    <h6 id="response_result_Fee"></h6>
-                    <h6 id="response_result_Flags"></h6>
-                    <h6 id="response_result_LastLedgerSequence"></h6>
-                    <h6 id="response_result_Sequence"></h6>
-                    <h6 id="response_result_SigningPubKey"></h6>
-                    <h6 id="response_result_Amount_currency"></h6>
-                    <h6 id="response_result_TransactionType"></h6>
-                    <h6 id="response_result_date"></h6>
-                    <h6 id="response_result_hash"></h6>
-                    <h6 id="response_result_ledger_index"></h6>
-                    <h6 id="response_result_meta_TransactionIndex"></h6>
-                    <h6 id="response_result_meta_TransactionResult"></h6>
-                    <h6 id="response_result_meta_delivered_amount_currency"></h6>
-                    <h6 id="response_result_meta_delivered_amount_issuer"></h6>
-                    <h6 id="response_result_meta_delivered_amount_value"></h6>
-        
-             </div>
+            </div><!--End of transaction result div -->
 
 
+
+            <!--
+            Table defination for transaction response
+        -->
+            <div id="table_div">
+            
+                <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">value</th>
+                        <th scope="col">Response </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td >Account</td>
+                        <td id = 'response_result_Account'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td >currency</td>
+                        <td id = 'response_result_Amount_currency'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td >issuer</td>
+                        <td id = 'response_result_Amount.value'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td >value</td>
+                        <td id = 'response_result_Amount_value'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td >Destination</td>
+                        <td id = 'response.result_Destination'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td >Fee</td>
+                        <td id = 'response_result_Fee'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        <td >Flags</td>
+                        <td id = 'response_result_Flags'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">8</th>
+                        <td >LastLedgerSequence</td>
+                        <td id = 'response_result_LastLedgerSequence'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">9</th>
+                        <td >Sequence</td>
+                        <td id = 'response_result_Sequence'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        <td >SigningPubKey</td>
+                        <td id = 'response_result_SigningPubKey'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">11</th>
+                        <td >TransactionType</td>
+                        <td id = 'response_result_TransactionType'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">12</th>
+                        <td >date</td>
+                        <td id = 'response_result_date'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">13</th>
+                        <td >hash</td>
+                        <td id = 'response_result_hash'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">14</th>
+                        <td >ledger_index</td>
+                        <td id = 'response_result_ledger_index'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">15</th>
+                        <td >TransactionIndex</td>
+                        <td id = 'response_result_meta_TransactionIndex'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">16</th>
+                        <td >TransactionResult</td>
+                        <td id = 'response_result_meta_TransactionResult'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">17</th>
+                        <td >currency</td>
+                        <td id = 'esponse_result_meta_delivered_amount_currency'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">18</th>
+                        <td >issuer</td>
+                        <td id = 'response_result_meta_delivered_amount_issuer'></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">19</th>
+                        <td >value</td>
+                        <td id = 'response_result_meta_delivered_amount_value'></td>
+                      </tr>
+                      
+
+                      
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div><!--End Of Container div-->
+        <!-- end of table -->
 
 
 
