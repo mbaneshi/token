@@ -145,7 +145,6 @@ for (i=0; i<length;i++){
 
     .catch(e =>{console.log(e)});
 
-    sleep(10000);
 
 }
 
@@ -192,7 +191,7 @@ async function send_token_fn(
   console.log(`Issue  address is ${issuer_address}`);
   console.log(`Token Quantity is ${token_quantity}`);
   console.log(`Sender  Seed is ${sender_seed}`);
-  console.log(` Currency name  is ${currency_name}}`);
+  console.log(` Currency name  is ${currency_name}`);
  //prepare parameter for transaction
 
   const sender_wallet = xrpl.Wallet.fromSeed(sender_seed) 
@@ -216,65 +215,63 @@ async function send_token_fn(
   console.log(`Sending ${token_quantity} ${currency_name} to ${reciever_address}...`)
   const response = await client.submitAndWait(pay_signed.tx_blob)
 sleep(500);
-  $('#response_result_Account').html('acount =',response.result.Account)
-  $('#response_result_Amount_currency').html('currency',response.result.Amount.currency);
-  $('#response_result_Amount_value').html('value=',response.result.Account.value)
-  $('#response_result_Destination').html('destination =',response.result.Account)
-  $('#response_result_Fee').html('fee =',response.result.Account)
-  $('#response_result_Flags').html('flag =',response.result.Account)
-  $('#response_result_LastLedgerSequence').html('LastLedgerSequence =',response.result.Account)
-  $('#response_result_Sequence').html('Sequence =',response.result.Account)
-  $('#response_result_SigningPubKey').html('SigningPubKey =',response.result.Account)
-  $('#"response_result_TransactionType').html('TransactionType =',response.result.Account)
-  $('#"response_result_date').html('date' ,response.result.Account)
-  $('#esponse_result_hash').html('hash =',response.result.Account)
-  $('#response_result_ledger_index').html('ledger_index =',response.result.Account)
-  $('#response_result_meta_TransactionIndex').html('TransactionIndex =',response.result.Account)
-  $('#response_result_meta_TransactionResult').html('TransactionResult =',response.result.Account)
-  $('#"response_result_meta_delivered_amount_currency').html('delivered_amount_currency =',response.result.Account)
-  $('#response_result_meta_delivered_amount_issuer').html('delivered_amount_issuer =',response.result.Account)
-  $('#response_result_meta_delivered_amount_value').html('amount_value =',response.result.Account)
-  $('#response_result_Amount_currency').html('Amount_currency =',response.result.Account)
+if(response.result.meta.TransactionResult =='tesSUCCESS'){
+
+  $('#response_result_Account').html('acount =' + response.result.Account)
+  $('#response_result_Amount_currency').html('currency' + response.result.Amount.currency);
+  $('#response_result_Amount_value').html('value=' + response.result.Account.value)
+  $('#response_result_Destination').html('destination =' + response.result.Destination)
+  $('#response_result_Fee').html('fee =' + response.result.Fee)
+  $('#response_result_Flags').html('flag ='+ response.result.Flags)
+  $('#response_result_LastLedgerSequence').html('LastLedgerSequence ='+ response.result.LastLedgerSequence)
+  $('#response_result_Sequence').html('Sequence ='+ response.result.Sequence)
+  $('#response_result_SigningPubKey').html('SigningPubKey ='+ response.result.SigningPubKey)
+  $('#response_result_TransactionType').html('TransactionType ='+ response.result.TransactionType)
+  $('#response_result_date').html('date' + response.result.date)
+  $('#esponse_result_hash').html('hash ='+ response.result.hash)
+  $('#response_result_ledger_index').html('ledger_index ='+ response.result.ledger_index)
+  $('#response_result_meta_TransactionIndex').html('TransactionIndex ='+ response.result.meta.TransactionIndex)
+  $('#response_result_meta_TransactionResult').html('TransactionResult ='+ response.result.meta.TransactionResult)
+  $('#response_result_meta_delivered_amount_currency').html('delivered_amount_currency ='+ response.result.meta.delivered_amount.currency)
+  $('#response_result_meta_delivered_amount_issuer').html('delivered_amount_issuer ='+ response.result.meta.delivered_amount.issuer)
+  $('#response_result_meta_delivered_amount_value').html('amount_value ='+ response.result.meta.delivered_amount.value)
+  $('#response_result_Amount_currency').html('Amount_currency ='+ response.result.Account)
+
+  console.log('Account',response.result.Account);
+  console.log('currency',response.result.Amount.currency);
+  console.log('issuer',response.result.Amount.issuer);
+  console.log('value',response.result.Amount.value);
+  console.log('Destination',response.result.Destination);
+  console.log('Fee',response.result.Fee);
+  console.log('Flags',response.result.Flags);
+  console.log('LastLedgerSequence',response.result.LastLedgerSequence);
+  console.log('Sequence',response.result.Sequence);
+  console.log('SigningPubKey',response.result.SigningPubKey);
+  console.log('TransactionType',response.result.TransactionType);
+  console.log('date',response.result.date);
+  console.log('hash',response.result.hash);
+  console.log('ledger_index',response.result.ledger_index);
+  console.log('TransactionIndex',response.result.meta.TransactionIndex);
+  console.log('TransactionResult',response.result.meta.TransactionResult);
+  console.log('currency',response.result.meta.delivered_amount.currency);
+  console.log('issuer',response.result.meta.delivered_amount.issuer);
+  console.log('value',response.result.meta.delivered_amount.value);
+  
+  // console.log('pay result type  ', pay_result.type);
+  // console.log('pay result Account is as follows ', pay_result.Account);
+  // console.log('pay result Amount is as follows ', pay_result.Amount);
+  // console.log('pay result  currency is as follows ', pay_result.Amount.currency);
+  // console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
+  // console.log('pay result  value is as follows ', pay_result.Amount.value);
+
+}
 
   //
  
-      console.log('Account',response.result.Account);
-      console.log('currency',response.result.Amount.currency);
-      console.log('issuer',response.result.Amount.issuer);
-      console.log('value',response.result.Amount.value);
-      console.log('Destination',response.result.Destination);
-      console.log('Fee',response.result.Fee);
-      console.log('Flags',response.result.Flags);
-      console.log('LastLedgerSequence',response.result.LastLedgerSequence);
-      console.log('Sequence',response.result.Sequence);
-      console.log('SigningPubKey',response.result.SigningPubKey);
-      console.log('TransactionType',response.result.TransactionType);
-      console.log('date',response.result.date);
-      console.log('hash',response.result.hash);
-      console.log('ledger_index',response.result.ledger_index);
-      console.log('TransactionIndex',response.result.meta.TransactionIndex);
-      console.log('TransactionResult',response.result.meta.TransactionResult);
-      console.log('currency',response.result.meta.delivered_amount.currency);
-      console.log('issuer',response.result.meta.delivered_amount.issuer);
-      console.log('value',response.result.meta.delivered_amount.value);
-
-
-
-
-
-
-
- 
-  console.log('pay result type  ', pay_result.type);
-  console.log('pay result Account is as follows ', pay_result.Account);
-  console.log('pay result Amount is as follows ', pay_result.Amount);
-  console.log('pay result  currency is as follows ', pay_result.Amount.currency);
-  console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
-  console.log('pay result  value is as follows ', pay_result.Amount.value);
-
-  
-return response
   client.disconnect()
+  sleep(3000);
+
+  return response
 } 
 
 //function to get acount information 
