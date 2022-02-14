@@ -126,20 +126,26 @@ $('#form').on('submit', function (e) {
    var sender_seed =  e.target.sender_seed.value
    var reciever_address_comma_seprated =  e.target.reciever_address.value
    var token_quantity =  e.target.token_quantity.value
-   reciever_address_array = reciever_address_comma_seprated.split(',');
+  //  var reciever_address_array = reciever_address_comma_seprated.split(',');
+
+   var reciever_address_array = reciever_address_comma_seprated.split(",").map(item => item.trim());
 
    var length =  reciever_address_array.length
-for (i=0; i<length;i++){
+
+   for (i=0; i<length;i++){
 
   console.log(`transaction prepare for address ${reciever_address_array[i]}`);
+sleep(2000)
 
-
-   response_from_send_token_fn  = send_token_fn(sender_address = sender_address,
+   response_from_send_token_fn  = send_token_fn(
+     sender_address = sender_address,
     reciever_address = reciever_address_array[i],
     issuer_address = issuer_address,
     token_quantity = token_quantity,
     sender_seed = sender_seed,
     currency_name = currency_name);
+
+sleep(5000)
 
     response_from_send_token_fn.then(e=>{console.log(e)})
 
@@ -217,59 +223,16 @@ async function send_token_fn(
 sleep(500);
 if(response.result.meta.TransactionResult =='tesSUCCESS'){
 
-  $('#response_result_Account').html('acount =' + response.result.Account)
-  $('#response_result_Amount_currency').html('currency' + response.result.Amount.currency);
-  $('#response_result_Amount_value').html('value=' + response.result.Account.value)
-  $('#response_result_Destination').html('destination =' + response.result.Destination)
-  $('#response_result_Fee').html('fee =' + response.result.Fee)
-  $('#response_result_Flags').html('flag ='+ response.result.Flags)
-  $('#response_result_LastLedgerSequence').html('LastLedgerSequence ='+ response.result.LastLedgerSequence)
-  $('#response_result_Sequence').html('Sequence ='+ response.result.Sequence)
-  $('#response_result_SigningPubKey').html('SigningPubKey ='+ response.result.SigningPubKey)
-  $('#response_result_TransactionType').html('TransactionType ='+ response.result.TransactionType)
-  $('#response_result_date').html('date' + response.result.date)
-  $('#esponse_result_hash').html('hash ='+ response.result.hash)
-  $('#response_result_ledger_index').html('ledger_index ='+ response.result.ledger_index)
-  $('#response_result_meta_TransactionIndex').html('TransactionIndex ='+ response.result.meta.TransactionIndex)
-  $('#response_result_meta_TransactionResult').html('TransactionResult ='+ response.result.meta.TransactionResult)
-  $('#response_result_meta_delivered_amount_currency').html('delivered_amount_currency ='+ response.result.meta.delivered_amount.currency)
-  $('#response_result_meta_delivered_amount_issuer').html('delivered_amount_issuer ='+ response.result.meta.delivered_amount.issuer)
-  $('#response_result_meta_delivered_amount_value').html('amount_value ='+ response.result.meta.delivered_amount.value)
-  $('#response_result_Amount_currency').html('Amount_currency ='+ response.result.Account)
+ log_to_dom(response);
 
-  console.log('Account',response.result.Account);
-  console.log('currency',response.result.Amount.currency);
-  console.log('issuer',response.result.Amount.issuer);
-  console.log('value',response.result.Amount.value);
-  console.log('Destination',response.result.Destination);
-  console.log('Fee',response.result.Fee);
-  console.log('Flags',response.result.Flags);
-  console.log('LastLedgerSequence',response.result.LastLedgerSequence);
-  console.log('Sequence',response.result.Sequence);
-  console.log('SigningPubKey',response.result.SigningPubKey);
-  console.log('TransactionType',response.result.TransactionType);
-  console.log('date',response.result.date);
-  console.log('hash',response.result.hash);
-  console.log('ledger_index',response.result.ledger_index);
-  console.log('TransactionIndex',response.result.meta.TransactionIndex);
-  console.log('TransactionResult',response.result.meta.TransactionResult);
-  console.log('currency',response.result.meta.delivered_amount.currency);
-  console.log('issuer',response.result.meta.delivered_amount.issuer);
-  console.log('value',response.result.meta.delivered_amount.value);
+  log_toconsole(response);
   
-  // console.log('pay result type  ', pay_result.type);
-  // console.log('pay result Account is as follows ', pay_result.Account);
-  // console.log('pay result Amount is as follows ', pay_result.Amount);
-  // console.log('pay result  currency is as follows ', pay_result.Amount.currency);
-  // console.log('pay result issuer is as follows ', pay_result.Amount.issuer);
-  // console.log('pay result  value is as follows ', pay_result.Amount.value);
-
+  
 }
 
   //
  
   client.disconnect()
-  sleep(3000);
 
   return response
 } 
@@ -392,3 +355,50 @@ async function get_gateway_balance_fn(address) {
 
 }
 
+function log_to_dom(response){
+
+  $('#response_result_Account').html('acount =' + response.result.Account)
+  $('#response_result_Amount_currency').html('currency' + response.result.Amount.currency);
+  $('#response_result_Amount_value').html('value=' + response.result.Account.value)
+  $('#response_result_Destination').html('destination =' + response.result.Destination)
+  $('#response_result_Fee').html('fee =' + response.result.Fee)
+  $('#response_result_Flags').html('flag ='+ response.result.Flags)
+  $('#response_result_LastLedgerSequence').html('LastLedgerSequence ='+ response.result.LastLedgerSequence)
+  $('#response_result_Sequence').html('Sequence ='+ response.result.Sequence)
+  $('#response_result_SigningPubKey').html('SigningPubKey ='+ response.result.SigningPubKey)
+  $('#response_result_TransactionType').html('TransactionType ='+ response.result.TransactionType)
+  $('#response_result_date').html('date' + response.result.date)
+  $('#esponse_result_hash').html('hash ='+ response.result.hash)
+  $('#response_result_ledger_index').html('ledger_index ='+ response.result.ledger_index)
+  $('#response_result_meta_TransactionIndex').html('TransactionIndex ='+ response.result.meta.TransactionIndex)
+  $('#response_result_meta_TransactionResult').html('TransactionResult ='+ response.result.meta.TransactionResult)
+  $('#response_result_meta_delivered_amount_currency').html('delivered_amount_currency ='+ response.result.meta.delivered_amount.currency)
+  $('#response_result_meta_delivered_amount_issuer').html('delivered_amount_issuer ='+ response.result.meta.delivered_amount.issuer)
+  $('#response_result_meta_delivered_amount_value').html('amount_value ='+ response.result.meta.delivered_amount.value)
+  $('#response_result_Amount_currency').html('Amount_currency ='+ response.result.Account)
+
+
+
+}
+function log_toconsole(response){
+
+  onsole.log('Account',response.result.Account);
+  console.log('currency',response.result.Amount.currency);
+  console.log('issuer',response.result.Amount.issuer);
+  console.log('value',response.result.Amount.value);
+  console.log('Destination',response.result.Destination);
+  console.log('Fee',response.result.Fee);
+  console.log('Flags',response.result.Flags);
+  console.log('LastLedgerSequence',response.result.LastLedgerSequence);
+  console.log('Sequence',response.result.Sequence);
+  console.log('SigningPubKey',response.result.SigningPubKey);
+  console.log('TransactionType',response.result.TransactionType);
+  console.log('date',response.result.date);
+  console.log('hash',response.result.hash);
+  console.log('ledger_index',response.result.ledger_index);
+  console.log('TransactionIndex',response.result.meta.TransactionIndex);
+  console.log('TransactionResult',response.result.meta.TransactionResult);
+  console.log('currency',response.result.meta.delivered_amount.currency);
+  console.log('issuer',response.result.meta.delivered_amount.issuer);
+  console.log('value',response.result.meta.delivered_amount.value);
+}
